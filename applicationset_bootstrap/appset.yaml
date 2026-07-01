@@ -1,0 +1,30 @@
+piVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test-apps
+  namespace: testing
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/martysohio/argotesting
+        revision: main
+        directories:
+          - path: apps/*
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/martysohio/argotesting
+        targetRevision: main
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
