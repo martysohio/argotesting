@@ -2,7 +2,7 @@ piVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: test-apps
-  namespace: testing
+  namespace: argocd
 spec:
   generators:
     - git:

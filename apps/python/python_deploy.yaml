@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-hello
+  template:
+    metadata:
+      labels:
+        app: fastapi-hello
+    spec:
+      containers:
+        - name: fastapi
+          image: python:3.12-slim
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              pip install --no-cache-dir fastapi uvicorn &&
+
+              cat <<EOF > /app.py
+              from fastapi import FastAPI
+
+              app = FastAPI()
+
+              @app.get("/")
+              def hello():
+                  return {"message": "Hello, World!"}
+              EOF
+
+              uvicorn app:app --host 0.0.0.0 --port 8000
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-hello
+spec:
+  selector:
+    app: fastapi-hello
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP
