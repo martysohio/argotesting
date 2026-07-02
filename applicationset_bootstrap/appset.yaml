@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/martysohio/argotesting
+        repoURL: https://github.com/martysohio/argotesting.git
         revision: main
         directories:
           - path: apps/*
@@ -16,7 +16,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/martysohio/argotesting
+        repoURL: https://github.com/martysohio/argotesting.git
         targetRevision: main
         path: "{{path}}"
       destination:
