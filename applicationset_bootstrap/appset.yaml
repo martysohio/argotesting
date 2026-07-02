@@ -20,7 +20,7 @@ spec:
         targetRevision: main
         path: "{{path}}"
       destination:
-        server: https://kubernetes.default.svc
+        server: https://cluster-argo1:8001
         namespace: "{{path.basename}}"
       syncPolicy:
         automated:
