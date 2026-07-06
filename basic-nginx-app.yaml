@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: basic-nginx
+  namespace: argocd
+
+  # Optional: allows Argo CD to delete managed resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: git@github.com:martysohio/argotesting.git
+    targetRevision: main
+    path: basic-nginx
+
+  destination:
+    server: http://cluster-argo1:8001
+    namespace: basic-nginx
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
