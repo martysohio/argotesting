@@ -16,6 +16,8 @@ spec:
     repoURL: https://github.com/martysohio/argotesting.git
     targetRevision: main
     path: basic-nginx
+    directory:
+      exclude: 'basic-nginx-app.yaml' # Prevents the app from syncing itself
 
   destination:
     server: http://cluster-argo1:8001
