@@ -27,3 +27,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+# note, do not include syncoptions like - CreateNamespace=true here because argocd wont allow it
+# this app appears in akuity argocd instance separate from target cluster
