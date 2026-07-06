@@ -7,23 +7,23 @@ data:
     <!DOCTYPE html>
     <html>
       <body>
-        <h1>Hello, World! Akuity test</h1>
+        <h1>Hello, World! Akuity single application test</h1>
       </body>
     </html>
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-nginx
+  name: basic-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-nginx  
+      app: basic-nginx  
   template:
     metadata:
       labels:
-        app: hello-nginx
+        app: basic-nginx
     spec:
       containers:
         - name: nginx
