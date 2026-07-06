@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: app-set-matrix-generator
+  namespace: argocd
+
+  # Optional: allows Argo CD to delete managed resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: application-set-matrix-generator
+    directory:
+      exclude: 'parent-app.yaml' # Prevents the app from syncing itself
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+# note, do not include syncoptions like - CreateNamespace=true here because argocd wont allow it
+# this app appears in akuity argocd instance separate from target cluster
