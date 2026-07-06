@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: app-set-single-cluster
+  namespace: argocd
+
+  # Optional: allows Argo CD to delete managed resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: application-set-single-cluster
+    directory:
+      exclude: 'parent-app.yaml' # Prevents the app from syncing itself
+
+  destination:
+    server: http://cluster-argo1:8001
+    namespace: app-set-single-cluster
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
