@@ -16,7 +16,7 @@ spec:
             argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
-      name: "{{path.basename}}"
+      name: "matrix-generator-{{path.basename}}"
     spec:
       project: default
       source:
