@@ -13,7 +13,7 @@ spec:
   project: default
 
   source:
-    repoURL: git@github.com:martysohio/argotesting.git
+    repoURL: https://github.com/martysohio/argotesting.git
     targetRevision: main
     path: basic-nginx
 
