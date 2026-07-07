@@ -17,7 +17,6 @@ spec:
               selector:
                 matchLabels:
                   environment: prod
-
   template:
     metadata:
       name: "matrix-generator-{{ .path.basename }}-{{ .name }}"

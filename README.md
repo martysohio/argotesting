@@ -16,3 +16,11 @@ Bootstrap/app/appset files exclude themselves to avoid recursive loops like this
 Single pod nginx container that can be deployed.
 
 argocd app create -f basic-nginx-app.yaml
+
+# application-set-single-cluster
+
+launches an app set that launches arbitary numbers of apps based on the contents of the apps/ directory.
+
+# application-set-matrix-generator
+
+launches arbitrary apps based on apps/ directory, but duplicated across multiple clusters. In this case using a matrix generator to launch an app for each app in apps/ , then the same set on each cluster with the label `environment: prod`
