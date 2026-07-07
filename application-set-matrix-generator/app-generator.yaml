@@ -1,9 +1,6 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: app-set-matrix-generator
-  namespace: argocd
 spec:
+  goTemplate: true
+
   generators:
     - matrix:
         generators:
@@ -16,18 +13,23 @@ spec:
               selector:
                 matchLabels:
                   argocd.argoproj.io/secret-type: cluster
+
   template:
     metadata:
-      name: "matrix-generator-{{.path.basename}}"
+      name: "matrix-generator-{{ .path.basename }}-{{ .name }}"
+
     spec:
       project: default
+
       source:
         repoURL: https://github.com/martysohio/argotesting.git
         targetRevision: main
-        path: "{{.path}}"
+        path: "{{ .path.path }}"
+
       destination:
-        server: "{{.server}}"
-        namespace: "{{.name}}-matrix-generator-{{.path.basename}}"
+        server: "{{ .server }}"
+        namespace: "{{ .name }}-matrix-generator-{{ .path.basename }}"
+
       syncPolicy:
         automated:
           prune: true
