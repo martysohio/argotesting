@@ -1,6 +1,10 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: ApplicationSet 
+metadata: 
+  name: app-set-matrix-generator 
+  namespace: argocd
 spec:
   goTemplate: true
-
   generators:
     - matrix:
         generators:
