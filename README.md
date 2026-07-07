@@ -21,6 +21,12 @@ argocd app create -f basic-nginx-app.yaml
 
 launches an app set that launches arbitary numbers of apps based on the contents of the apps/ directory.
 
+similarly ```argocd app create -f application-set-single-cluster/parent-app.yaml```
+
 # application-set-matrix-generator
 
 launches arbitrary apps based on apps/ directory, but duplicated across multiple clusters. In this case using a matrix generator to launch an app for each app in apps/ , then the same set on each cluster with the label `environment: prod`
+
+```
+argocd app create -f application-set-matrix-generator/parent-app.yaml
+```
