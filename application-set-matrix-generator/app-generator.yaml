@@ -16,16 +16,16 @@ spec:
             argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
-      name: "matrix-generator-{{path.basename}}"
+      name: 'matrix-generator-{{path.basename}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/martysohio/argotesting.git
         targetRevision: main
-        path: "{{path}}"
+        path: '{{path}}'
       destination:
         server: '{{.server}}'
-        namespace: "{{name}}-matrix-generator-{{path.basename}}"
+        namespace: '{{name}}-matrix-generator-{{path.basename}}'
       syncPolicy:
         automated:
           prune: true
