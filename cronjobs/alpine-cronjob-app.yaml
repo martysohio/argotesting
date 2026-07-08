@@ -8,7 +8,9 @@ spec:
   source:
     repoURL: https://github.com/martysohio/argotesting.git
     targetRevision: HEAD
-    path: cronjobs/alpine-sleeper
+    path: cronjobs
+    directory:
+      exclude: 'alpine-cronjob-app.yaml' # Prevents the app from syncing itself
   destination:
     server: http://cluster-argo1:8001
     namespace: cronjobs
