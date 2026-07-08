@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: kargo-fastapi
+  namespace: argocd
+
+  # Optional: allows Argo CD to delete managed resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: kargo-fastapi
+    directory:
+      exclude: 'kargo-fastapi-app.yaml' # Prevents the app from syncing itself
+
+  destination:
+    server: http://cluster-argo1:8001
+    namespace: kargo-fastapi
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

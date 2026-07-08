@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alpine-cronjob
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: HEAD
+    path: cronjobs/alpine-sleeper
+  destination:
+    server: http://cluster-argo1:8001
+    namespace: cronjobs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
