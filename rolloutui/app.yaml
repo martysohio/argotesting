@@ -11,8 +11,10 @@ spec:
     path: rolloutui # Path to the directory containing rollout.yaml
   destination:
     server: http://cluster-argo1:8001
-    namespace: default
+    namespace: rollout
   syncPolicy:
     automated:
       prune: true
       selfHeal: true   
+    syncOptions:
+      - CreateNamespace=true
