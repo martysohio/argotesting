@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/martysohio/argotesting.git # Replace with your Git repo
     targetRevision: HEAD
     path: rolloutui # Path to the directory containing rollout.yaml
+    directory:
+      exclude: 'app.yaml' # Prevents the app from syncing itself
   destination:
     server: http://cluster-argo1:8001
     namespace: rollout
