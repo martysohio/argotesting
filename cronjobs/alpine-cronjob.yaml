@@ -22,5 +22,5 @@ spec:
                 - -c
                 - |
                   echo "Job started at $(date)"
-                  sleep 30
+                  sleep 3000
                   echo "Job completed at $(date)"

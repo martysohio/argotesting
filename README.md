@@ -17,6 +17,12 @@ Single pod nginx container that can be deployed.
 
 argocd app create -f basic-nginx-app.yaml
 
+# cronjobs
+
+Simple alpine container that appears and sleeps for 30 seconds every 5 minutes
+
+argocd app create -f alpine-cronjob-app.yaml
+
 # application-set-single-cluster
 
 launches an app set that launches arbitary numbers of apps based on the contents of the apps/ directory.
