@@ -4,8 +4,8 @@ kind: Application
 metadata:
   name: basic-nginx
   namespace: argocd
-  link.argocd.argoproj.io/external-link: https://www.google.com
-  # Optional: allows Argo CD to delete managed resources
+  annotations:
+    link.argocd.argoproj.io/external-link: http://google.com
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 
