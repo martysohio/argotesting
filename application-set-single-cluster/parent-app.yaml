@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 
 metadata:
-  name: app-set-single-cluster
   namespace: argocd
 
   # Optional: allows Argo CD to delete managed resources
