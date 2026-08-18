@@ -12,7 +12,7 @@ spec:
     directory:
       exclude: 'app.yaml' # Prevents the app from syncing itself
   destination:
-    name: argocd-agent   # must match your Kargo integration's destination name
+    name: http://cluster-argo1:8001   # must match your Kargo integration's destination name
     namespace: kargo-system-accounts
   syncPolicy:
     automated:
