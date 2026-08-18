@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-system-accounts
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: HEAD
+    path: kargo-namespace
+    directory:
+      exclude: 'app.yaml' # Prevents the app from syncing itself
+  destination:
+    name: kargo-integration   # must match your Kargo integration's destination name
+    namespace: kargo-system-accounts
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

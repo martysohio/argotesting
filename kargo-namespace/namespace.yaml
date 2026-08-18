@@ -1,0 +1,9 @@
+# system/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-system-accounts
+  labels:
+    # intentionally omitted: kargo.akuity.io/project: "true"
+    # this keeps it out of Kargo's project-namespace search/adoption logic
+    purpose: kargo-global-service-accounts
