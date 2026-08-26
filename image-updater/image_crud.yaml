@@ -2,13 +2,13 @@ apiVersion: argocd-image-updater.argoproj.io/v1alpha1
 kind: ImageUpdater
 metadata:
   name: my-image-updater
-  namespace: argocd          # must match your Argo CD instance's namespace
+  namespace: argocd
 spec:
+  commonUpdateSettings:
+    updateStrategy: "semver"
+    forceUpdate: false
   applicationRefs:
-    - namePattern: "*"        # which Application(s) this applies to
+    - namePattern: "my-app-*"
       images:
-        - alias: "myalias"
-          imageName: "some/image"
-          commonUpdateSettings:
-            updateStrategy: "digest"   # or "newest-build" — required for platforms to take effect
-            platforms: "linux/arm64,linux/amd64"
+        - alias: "nginx"
+          imageName: "nginx:1.20"
