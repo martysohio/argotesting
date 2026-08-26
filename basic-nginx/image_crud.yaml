@@ -5,7 +5,7 @@ metadata:
   namespace: argocd          # must match your Argo CD instance's namespace
 spec:
   applicationRefs:
-    - namePattern: "my-app-*"        # which Application(s) this applies to
+    - namePattern: "*"        # which Application(s) this applies to
       images:
         - alias: "myalias"
           imageName: "some/image"
