@@ -10,7 +10,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 
 spec:
-  #project: default
+  project: app-any-namespace
 
   source:
     repoURL: https://github.com/martysohio/argotesting.git
@@ -30,3 +30,21 @@ spec:
 
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: app-any-namespace
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  sourceNamespaces:
+  - /^((?!kube-system).)*$/
+  sourceRepos:
+  - '*'
+---
