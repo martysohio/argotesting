@@ -10,7 +10,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 
 spec:
-  project: default
+  #project: default
 
   source:
     repoURL: https://github.com/martysohio/argotesting.git
