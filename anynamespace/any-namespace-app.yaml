@@ -3,7 +3,7 @@ kind: Application
 
 metadata:
   name: basic-nginx
-  namespace: argocd
+  namespace: anynamespace
   annotations:
     link.argocd.argoproj.io/external-link: http://google.com
   finalizers:
@@ -15,13 +15,13 @@ spec:
   source:
     repoURL: https://github.com/martysohio/argotesting.git
     targetRevision: main
-    path: basic-nginx
+    path: anynamespace
     directory:
-      exclude: 'basic-nginx-app.yaml' # Prevents the app from syncing itself
+      exclude: 'any-namespace-app.yaml' # Prevents the app from syncing itself
 
   destination:
     # server: http://cluster-terraform:8001
-    namespace: basic-nginx
+    namespace: anynamespace
 
   syncPolicy:
     automated:
