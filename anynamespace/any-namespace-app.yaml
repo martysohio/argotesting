@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: anynamespace
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 
@@ -30,21 +35,3 @@ spec:
 
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: app-any-namespace
-  namespace: argocd
-spec:
-  clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
-  destinations:
-  - namespace: '*'
-    server: '*'
-  sourceNamespaces:
-  - /^((?!kube-system).)*$/
-  sourceRepos:
-  - '*'
----
