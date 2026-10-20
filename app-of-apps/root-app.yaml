@@ -1,0 +1,23 @@
+# Parent app: apply this one manually (kubectl/argocd CLI or Akuity UI).
+# The child Application CRs live in the Akuity-hosted control plane, so the
+# destination is in-cluster/argocd, not argo1.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-app-of-apps
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: app-of-apps/apps
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
