@@ -1,0 +1,21 @@
+# AppProjects always live in the argocd namespace. sourceNamespaces is what
+# allows Applications in anynamespace to use this project.
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: anynamespace
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: anynamespace apps, managed from the anynamespace namespace
+  sourceNamespaces:
+    - anynamespace
+  sourceRepos:
+    - https://github.com/martysohio/argotesting.git
+  destinations:
+    - name: general-demo
+      namespace: team-a-nginx
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace

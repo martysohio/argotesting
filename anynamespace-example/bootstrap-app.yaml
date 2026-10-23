@@ -1,0 +1,24 @@
+# Parent app: apply this one manually (kubectl/argocd CLI or Akuity UI).
+# It lives in the argocd namespace and creates, on the Akuity-hosted control
+# plane (in-cluster): the team-a namespace, the team-a AppProject, and the
+# nginx Application inside the team-a namespace.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: anynamespace-bootstrap
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: anynamespace-example/control-plane
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

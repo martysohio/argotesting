@@ -1,0 +1,7 @@
+# Namespace on the Argo CD control plane that holds anynamespace's Application CRs.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: anynamespace
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"

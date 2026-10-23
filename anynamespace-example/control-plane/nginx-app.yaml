@@ -1,0 +1,24 @@
+# Application in the anynamespace namespace (not argocd). Shows up in the UI/CLI
+# as anynamespace/nginx.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+  namespace: anynamespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: anynamespace
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: anynamespace-example/manifests/nginx
+  destination:
+    name: general-demo
+    namespace: team-a-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
