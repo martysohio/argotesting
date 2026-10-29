@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: nginx-webhook
+  namespace: argocd
+  annotations:
+    # Only refresh this app when a webhook push touches files under its path
+    argocd.argoproj.io/manifest-generate-paths: .
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/martysohio/argotesting.git
+    targetRevision: main
+    path: nginx-webhook
+    directory:
+      exclude: 'nginx-webhook-app.yaml' # Prevents the app from syncing itself
+
+  destination:
+    name: general-demo
+    namespace: nginx-webhook
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
