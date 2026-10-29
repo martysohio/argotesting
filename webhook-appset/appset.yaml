@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: webhook-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    # One Application per webhook-appset/apps/*/config.yaml. A GitHub push webhook
+    # refreshes this generator, so new folders become apps without waiting for polling.
+    - git:
+        repoURL: https://github.com/martysohio/argotesting.git
+        revision: main
+        files:
+          - path: webhook-appset/apps/*/config.yaml
+  template:
+    metadata:
+      name: '{{ .name }}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/martysohio/argotesting.git
+        targetRevision: main
+        path: '{{ .path.path }}/manifests'
+      destination:
+        name: '{{ .cluster }}'
+        namespace: '{{ .namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
